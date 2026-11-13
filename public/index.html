@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7f4">
+    <title>StockFlow — Inventory, in focus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <main id="auth-screen" class="auth-screen hidden">
+      <section class="auth-aside">
+        <a class="brand brand-light" href="#"><span class="brand-mark">S</span> stockflow</a>
+        <div class="auth-message">
+          <div class="eyebrow">YOUR INVENTORY, IN FOCUS</div>
+          <h1>Know what’s in stock.<br><em>Stay one step ahead.</em></h1>
+          <p>A simpler way to keep your products organized and your business moving.</p>
+        </div>
+        <div class="auth-foot">Simple tools for thoughtful businesses.</div>
+      </section>
+      <section class="auth-main">
+        <div class="auth-box">
+          <div class="mobile-brand brand"><span class="brand-mark">S</span> stockflow</div>
+          <div class="eyebrow" id="auth-eyebrow">WELCOME BACK</div>
+          <h2 id="auth-title">Good to see you.</h2>
+          <p class="muted" id="auth-copy">Sign in to your inventory workspace.</p>
+          <form id="auth-form">
+            <label id="org-field" class="field hidden">Organization name
+              <input name="organizationName" maxlength="120" autocomplete="organization">
+            </label>
+            <label class="field">Email address
+              <input name="email" type="email" required maxlength="254" autocomplete="email">
+            </label>
+            <label class="field">Password
+              <input name="password" type="password" required minlength="8" maxlength="128" autocomplete="current-password">
+            </label>
+            <label id="confirm-field" class="field hidden">Confirm password
+              <input name="confirmPassword" type="password" minlength="8" maxlength="128" autocomplete="new-password">
+            </label>
+            <button id="auth-submit" class="button button-primary button-wide" type="submit">Sign in <span>→</span></button>
+          </form>
+          <p class="auth-switch"><span id="auth-switch-copy">New to StockFlow?</span> <button id="auth-switch" class="text-button" type="button">Create an account</button></p>
+        </div>
+      </section>
+    </main>
+
+    <div id="app-shell" class="app-shell hidden">
+      <aside class="sidebar">
+        <a class="brand" href="#" data-page="dashboard"><span class="brand-mark">S</span> stockflow</a>
+        <div class="workspace-label">WORKSPACE</div>
+        <nav class="main-nav" aria-label="Main navigation">
+          <button class="nav-link active" data-page="dashboard"><span class="nav-icon">◫</span> Overview</button>
+          <button class="nav-link" data-page="products"><span class="nav-icon">▤</span> Products <span id="nav-count" class="nav-count"></span></button>
+        </nav>
+        <div class="sidebar-bottom">
+          <button class="nav-link" data-page="settings"><span class="nav-icon">⚙</span> Settings</button>
+          <div class="profile">
+            <div class="avatar" id="avatar">S</div>
+            <div class="profile-info"><strong id="profile-email"></strong><span id="profile-org"></span></div>
+            <button id="logout" class="icon-button logout-button" type="button" aria-label="Log out" title="Log out">↗</button>
+          </div>
+        </div>
+      </aside>
+      <main class="main-content">
+        <header class="topbar">
+          <div class="breadcrumbs">StockFlow <span>/</span> <strong id="breadcrumb-current">Overview</strong></div>
+          <div class="topbar-date" id="today-label"></div>
+        </header>
+        <section id="page-dashboard" class="page"></section>
+        <section id="page-products" class="page hidden"></section>
+        <section id="page-settings" class="page hidden"></section>
+      </main>
+    </div>
+
+    <dialog id="product-dialog" class="dialog">
+      <form id="product-form" method="dialog">
+        <div class="dialog-head">
+          <div><div class="eyebrow">PRODUCT DETAILS</div><h2 id="product-dialog-title">Add a product</h2></div>
+          <button class="icon-button" type="button" data-close-dialog aria-label="Close dialog">×</button>
+        </div>
+        <input type="hidden" name="id">
+        <div class="form-grid">
+          <label class="field span-two">Product name <span class="required">*</span>
+            <input name="name" required maxlength="120" placeholder="e.g. Canvas Tote">
+          </label>
+          <label class="field">SKU <span class="required">*</span>
+            <input name="sku" required maxlength="80" placeholder="e.g. BAG-001">
+          </label>
+          <label class="field">Quantity on hand <span class="required">*</span>
+            <input name="quantityOnHand" type="number" min="0" step="1" required value="0">
+          </label>
+          <label class="field">Cost price <span class="optional">Optional</span>
+            <div class="input-prefix"><span>$</span><input name="costPrice" type="number" min="0" step="0.01" placeholder="0.00"></div>
+          </label>
+          <label class="field">Selling price <span class="optional">Optional</span>
+            <div class="input-prefix"><span>$</span><input name="sellingPrice" type="number" min="0" step="0.01" placeholder="0.00"></div>
+          </label>
+          <label class="field">Low stock threshold <span class="optional">Optional</span>
+            <input name="lowStockThreshold" type="number" min="0" step="1" placeholder="Use default">
+          </label>
+          <label class="field span-two">Description <span class="optional">Optional</span>
+            <textarea name="description" rows="3" maxlength="2000" placeholder="Add a note about this product"></textarea>
+          </label>
+        </div>
+        <div class="dialog-actions">
+          <button class="button button-quiet" type="button" data-close-dialog>Cancel</button>
+          <button class="button button-primary" type="submit">Save product <span>→</span></button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>
