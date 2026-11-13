@@ -27,6 +27,7 @@ async function signup(app, email, organizationName) {
 test("signup creates a tenant and login protects the dashboard", async t => {
   const { app, db } = createHarness();
   t.after(() => db.close());
+  assert.equal((await request(app).get("/health")).status, 200);
   const { agent, result } = await signup(app, "owner@example.com", "Northwind Goods");
   assert.equal(result.status, 201);
   assert.equal(result.body.user.organizationName, "Northwind Goods");

@@ -26,6 +26,14 @@ For development with automatic restarts, run `npm run dev`. Run the test suite w
 
 Set a long, random `SESSION_SECRET` for any hosted deployment. The app is designed for a single Node.js instance with persistent disk storage; use a managed database and shared session store before scaling across instances.
 
+## Deploy to Render
+
+1. Push this repository to a GitHub repository Render can access.
+2. In Render, create a new Blueprint and select that repository. Render reads `render.yaml`.
+3. Review the service and persistent-disk cost in Render before confirming deployment.
+
+The Blueprint provisions a persistent disk at `data/`, sets `DB_PATH`, and generates `SESSION_SECRET`. SQLite data and login sessions survive restarts and deploys. This requires a paid Render web service because persistent disks are not available on the free plan.
+
 ## MVP notes
 
 - Each account creates one organization. Users, products, and settings are scoped by the signed-in session's organization.

@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: stockflow
+    runtime: node
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /health
+    disk:
+      name: stockflow-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 24.18.1
+      - key: DB_PATH
+        value: /opt/render/project/src/data/stockflow.sqlite
+      - key: SESSION_SECRET
+        generateValue: true

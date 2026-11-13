@@ -99,6 +99,7 @@ function createApp(options = {}) {
       maxAge: 1000 * 60 * 60 * 24 * 7
     }
   }));
+  app.get("/health", (req, res) => res.status(200).json({ status: "ok" }));
   app.use(express.static(path.join(__dirname, "public")));
 
   const sendError = (res, status, message) => res.status(status).json({ error: message });
